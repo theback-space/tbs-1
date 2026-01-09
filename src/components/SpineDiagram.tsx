@@ -14,10 +14,10 @@ export function SpineDiagram({ selectedVertebrae, onToggleVertebra }: SpineDiagr
   const coccygeal = vertebraeData.filter(v => v.region === 'coccygeal')
 
   return (
-    <div className="relative flex justify-center py-8">
+    <div className="relative flex justify-center py-8 overflow-visible">
       <svg
         viewBox="0 0 350 1400"
-        className="w-full max-w-[350px]"
+        className="w-full max-w-[350px] overflow-visible"
         style={{ filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.1))' }}
       >
         <defs>

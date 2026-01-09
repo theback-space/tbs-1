@@ -61,7 +61,7 @@ export function SubluxationReport({ selectedVertebrae }: SubluxationReportProps)
 
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <h4 className="text-sm font-semibold text-foreground mb-2">
+                        <h4 className="text-sm font-bold text-primary bg-primary/10 px-3 py-2 rounded-md mb-3">
                           Nerve Functions
                         </h4>
                         <ul className="space-y-1">
@@ -74,7 +74,7 @@ export function SubluxationReport({ selectedVertebrae }: SubluxationReportProps)
                       </div>
 
                       <div>
-                        <h4 className="text-sm font-semibold text-foreground mb-2">
+                        <h4 className="text-sm font-bold text-accent bg-accent/10 px-3 py-2 rounded-md mb-3">
                           Possible Symptoms
                         </h4>
                         <ul className="space-y-1">

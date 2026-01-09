@@ -59,30 +59,32 @@ export function SubluxationReport({ selectedVertebrae }: SubluxationReportProps)
                       </Badge>
                     </div>
 
-                    <div>
-                      <h4 className="text-sm font-semibold text-foreground mb-2">
-                        Nerve Functions
-                      </h4>
-                      <ul className="space-y-1">
-                        {vertebra.nerveFunctions.map((func, idx) => (
-                          <li key={idx} className="text-sm text-muted-foreground pl-4 relative before:content-['•'] before:absolute before:left-0">
-                            {func}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <h4 className="text-sm font-semibold text-foreground mb-2">
+                          Nerve Functions
+                        </h4>
+                        <ul className="space-y-1">
+                          {vertebra.nerveFunctions.map((func, idx) => (
+                            <li key={idx} className="text-sm text-muted-foreground pl-4 relative before:content-['•'] before:absolute before:left-0">
+                              {func}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
 
-                    <div>
-                      <h4 className="text-sm font-semibold text-foreground mb-2">
-                        Possible Symptoms
-                      </h4>
-                      <ul className="space-y-1">
-                        {vertebra.symptoms.map((symptom, idx) => (
-                          <li key={idx} className="text-sm text-muted-foreground pl-4 relative before:content-['•'] before:absolute before:left-0">
-                            {symptom}
-                          </li>
-                        ))}
-                      </ul>
+                      <div>
+                        <h4 className="text-sm font-semibold text-foreground mb-2">
+                          Possible Symptoms
+                        </h4>
+                        <ul className="space-y-1">
+                          {vertebra.symptoms.map((symptom, idx) => (
+                            <li key={idx} className="text-sm text-muted-foreground pl-4 relative before:content-['•'] before:absolute before:left-0">
+                              {symptom}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
                   </div>
 

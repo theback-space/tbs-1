@@ -16,8 +16,8 @@ export function SpineDiagram({ selectedVertebrae, onToggleVertebra }: SpineDiagr
   return (
     <div className="relative flex justify-center py-8">
       <svg
-        viewBox="0 0 350 1000"
-        className="w-full max-w-[320px]"
+        viewBox="0 0 350 1400"
+        className="w-full max-w-[350px]"
         style={{ filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.1))' }}
       >
         <defs>
@@ -42,10 +42,10 @@ export function SpineDiagram({ selectedVertebrae, onToggleVertebra }: SpineDiagr
               isSelected={selectedVertebrae.includes(vertebra.id)}
               onToggle={onToggleVertebra}
               region={vertebra.region}
-              yPosition={45 + index * 32}
-              width={105 + index * 4}
-              height={28}
-              curveOffset={-18 + index * 2}
+              yPosition={50 + index * 45}
+              width={100 + index * 5}
+              height={40}
+              curveOffset={-20 + index * 2.5}
             />
           ))}
         </g>
@@ -59,10 +59,10 @@ export function SpineDiagram({ selectedVertebrae, onToggleVertebra }: SpineDiagr
               isSelected={selectedVertebrae.includes(vertebra.id)}
               onToggle={onToggleVertebra}
               region={vertebra.region}
-              yPosition={280 + index * 34}
-              width={130 + index * 2}
-              height={30}
-              curveOffset={index < 6 ? 0 + index * 3 : 18 - (index - 6) * 2}
+              yPosition={380 + index * 48}
+              width={135 + index * 2.5}
+              height={44}
+              curveOffset={index < 6 ? 0 + index * 3.5 : 21 - (index - 6) * 2.5}
             />
           ))}
         </g>
@@ -76,10 +76,10 @@ export function SpineDiagram({ selectedVertebrae, onToggleVertebra }: SpineDiagr
               isSelected={selectedVertebrae.includes(vertebra.id)}
               onToggle={onToggleVertebra}
               region={vertebra.region}
-              yPosition={700 + index * 40}
-              width={160 - index * 5}
-              height={35}
-              curveOffset={6 - index * 2}
+              yPosition={970 + index * 52}
+              width={168 - index * 6}
+              height={48}
+              curveOffset={8 - index * 2.5}
             />
           ))}
         </g>
@@ -93,11 +93,10 @@ export function SpineDiagram({ selectedVertebrae, onToggleVertebra }: SpineDiagr
               isSelected={selectedVertebrae.includes(vertebra.id)}
               onToggle={onToggleVertebra}
               region={vertebra.region}
-              yPosition={910 + index * 36}
-              width={128}
-              height={32}
-              curveOffset={-4}
-              isSacrum={true}
+              yPosition={1240 + index * 42}
+              width={135}
+              height={38}
+              curveOffset={-5}
             />
           ))}
         </g>
@@ -111,19 +110,18 @@ export function SpineDiagram({ selectedVertebrae, onToggleVertebra }: SpineDiagr
               isSelected={selectedVertebrae.includes(vertebra.id)}
               onToggle={onToggleVertebra}
               region={vertebra.region}
-              yPosition={950 + index * 22}
-              width={66}
-              height={24}
-              curveOffset={-6}
-              isCoccyx={true}
+              yPosition={1325 + index * 30}
+              width={72}
+              height={28}
+              curveOffset={-8}
             />
           ))}
         </g>
 
-        <text x="10" y="30" className="fill-muted-foreground text-xs font-semibold uppercase">Cervical</text>
-        <text x="10" y="265" className="fill-muted-foreground text-xs font-semibold uppercase">Thoracic</text>
-        <text x="10" y="685" className="fill-muted-foreground text-xs font-semibold uppercase">Lumbar</text>
-        <text x="10" y="895" className="fill-muted-foreground text-xs font-semibold uppercase">Sacral</text>
+        <text x="10" y="35" className="fill-muted-foreground text-xs font-semibold uppercase tracking-wide">Cervical</text>
+        <text x="10" y="365" className="fill-muted-foreground text-xs font-semibold uppercase tracking-wide">Thoracic</text>
+        <text x="10" y="955" className="fill-muted-foreground text-xs font-semibold uppercase tracking-wide">Lumbar</text>
+        <text x="10" y="1225" className="fill-muted-foreground text-xs font-semibold uppercase tracking-wide">Sacral</text>
       </svg>
     </div>
   )

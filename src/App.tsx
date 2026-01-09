@@ -3,6 +3,7 @@ import { useKV } from '@github/spark/hooks'
 import { SpineDiagram } from '@/components/SpineDiagram'
 import { SubluxationReport } from '@/components/SubluxationReport'
 import { CarePlanForm } from '@/components/CarePlanForm'
+import { ExportPDFDialog } from '@/components/ExportPDFDialog'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Card } from '@/components/ui/card'
@@ -104,16 +105,24 @@ function App() {
               <div className="space-y-4">
                 <SubluxationReport selectedVertebrae={selectedVertebrae || []} />
                 
-                {selectedVertebrae && selectedVertebrae.length > 0 && (
-                  <Button
-                    onClick={handleGenerateCarePlan}
-                    className="w-full"
-                    size="lg"
-                  >
-                    <ListChecks className="w-5 h-5 mr-2" />
-                    Generate Care Plan
-                  </Button>
-                )}
+                <div className="flex gap-3">
+                  {selectedVertebrae && selectedVertebrae.length > 0 && (
+                    <>
+                      <Button
+                        onClick={handleGenerateCarePlan}
+                        className="flex-1"
+                        size="lg"
+                      >
+                        <ListChecks className="w-5 h-5 mr-2" />
+                        Generate Care Plan
+                      </Button>
+                      <ExportPDFDialog
+                        selectedVertebrae={selectedVertebrae}
+                        carePlan={carePlan || defaultCarePlan}
+                      />
+                    </>
+                  )}
+                </div>
               </div>
             </div>
           </TabsContent>
@@ -154,11 +163,15 @@ function App() {
                     >
                       Back to Assessment
                     </Button>
+                    <ExportPDFDialog
+                      selectedVertebrae={selectedVertebrae}
+                      carePlan={carePlan || defaultCarePlan}
+                    />
                     <Button
                       onClick={handleSaveAssessment}
                       className="flex-1"
                     >
-                      Save Assessment & Care Plan
+                      Save Assessment
                     </Button>
                   </div>
                 </>

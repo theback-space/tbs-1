@@ -16,8 +16,8 @@ export function SpineDiagram({ selectedVertebrae, onToggleVertebra }: SpineDiagr
   return (
     <div className="relative flex justify-center py-8">
       <svg
-        viewBox="0 0 300 900"
-        className="w-full max-w-[280px]"
+        viewBox="0 0 350 1000"
+        className="w-full max-w-[320px]"
         style={{ filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.1))' }}
       >
         <defs>
@@ -42,10 +42,10 @@ export function SpineDiagram({ selectedVertebrae, onToggleVertebra }: SpineDiagr
               isSelected={selectedVertebrae.includes(vertebra.id)}
               onToggle={onToggleVertebra}
               region={vertebra.region}
-              yPosition={40 + index * 28}
-              width={85 + index * 3}
-              height={24}
-              curveOffset={-15 + index * 2}
+              yPosition={45 + index * 32}
+              width={105 + index * 4}
+              height={28}
+              curveOffset={-18 + index * 2}
             />
           ))}
         </g>
@@ -59,9 +59,9 @@ export function SpineDiagram({ selectedVertebrae, onToggleVertebra }: SpineDiagr
               isSelected={selectedVertebrae.includes(vertebra.id)}
               onToggle={onToggleVertebra}
               region={vertebra.region}
-              yPosition={240 + index * 30}
-              width={105 + index * 2}
-              height={26}
+              yPosition={280 + index * 34}
+              width={130 + index * 2}
+              height={30}
               curveOffset={index < 6 ? 0 + index * 3 : 18 - (index - 6) * 2}
             />
           ))}
@@ -76,9 +76,9 @@ export function SpineDiagram({ selectedVertebrae, onToggleVertebra }: SpineDiagr
               isSelected={selectedVertebrae.includes(vertebra.id)}
               onToggle={onToggleVertebra}
               region={vertebra.region}
-              yPosition={600 + index * 35}
-              width={130 - index * 4}
-              height={30}
+              yPosition={700 + index * 40}
+              width={160 - index * 5}
+              height={35}
               curveOffset={6 - index * 2}
             />
           ))}
@@ -93,9 +93,9 @@ export function SpineDiagram({ selectedVertebrae, onToggleVertebra }: SpineDiagr
               isSelected={selectedVertebrae.includes(vertebra.id)}
               onToggle={onToggleVertebra}
               region={vertebra.region}
-              yPosition={780 + index * 32}
-              width={105}
-              height={28}
+              yPosition={910 + index * 36}
+              width={128}
+              height={32}
               curveOffset={-4}
               isSacrum={true}
             />
@@ -111,19 +111,19 @@ export function SpineDiagram({ selectedVertebrae, onToggleVertebra }: SpineDiagr
               isSelected={selectedVertebrae.includes(vertebra.id)}
               onToggle={onToggleVertebra}
               region={vertebra.region}
-              yPosition={815 + index * 20}
-              width={55}
-              height={20}
+              yPosition={950 + index * 22}
+              width={66}
+              height={24}
               curveOffset={-6}
               isCoccyx={true}
             />
           ))}
         </g>
 
-        <text x="10" y="25" className="fill-muted-foreground text-xs font-semibold uppercase">Cervical</text>
-        <text x="10" y="225" className="fill-muted-foreground text-xs font-semibold uppercase">Thoracic</text>
-        <text x="10" y="585" className="fill-muted-foreground text-xs font-semibold uppercase">Lumbar</text>
-        <text x="10" y="765" className="fill-muted-foreground text-xs font-semibold uppercase">Sacral</text>
+        <text x="10" y="30" className="fill-muted-foreground text-xs font-semibold uppercase">Cervical</text>
+        <text x="10" y="265" className="fill-muted-foreground text-xs font-semibold uppercase">Thoracic</text>
+        <text x="10" y="685" className="fill-muted-foreground text-xs font-semibold uppercase">Lumbar</text>
+        <text x="10" y="895" className="fill-muted-foreground text-xs font-semibold uppercase">Sacral</text>
       </svg>
     </div>
   )

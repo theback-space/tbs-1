@@ -28,7 +28,7 @@ export function VertebraButton({
 }: VertebraButtonProps) {
   const [isHovered, setIsHovered] = useState(false)
   
-  const centerX = 150
+  const centerX = 175
   const x = centerX - width / 2 + curveOffset
   
   const getVertebraPath = () => {
@@ -130,7 +130,7 @@ export function VertebraButton({
         textAnchor="middle"
         className="pointer-events-none select-none font-bold uppercase"
         style={{
-          fontSize: isCoccyx ? '9px' : isSacrum ? '10px' : '11px',
+          fontSize: isCoccyx ? '10px' : isSacrum ? '12px' : '13px',
           fill: isSelected ? 'white' : 'oklch(0.3 0.015 70)',
           letterSpacing: '0.5px'
         }}

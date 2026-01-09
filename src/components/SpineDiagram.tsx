@@ -14,31 +14,27 @@ export function SpineDiagram({ selectedVertebrae, onToggleVertebra }: SpineDiagr
   const coccygeal = vertebraeData.filter(v => v.region === 'coccygeal')
 
   return (
-    <div className="flex flex-col items-center gap-6 py-6">
-      <div className="flex flex-col items-center gap-2">
-        <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
-          Cervical
-        </h3>
-        <div className="flex flex-col gap-1">
-          {cervical.map(vertebra => (
-            <VertebraButton
-              key={vertebra.id}
-              id={vertebra.id}
-              label={vertebra.id}
-              isSelected={selectedVertebrae.includes(vertebra.id)}
-              onToggle={onToggleVertebra}
-              region={vertebra.region}
-            />
-          ))}
-        </div>
-      </div>
+    <div className="relative flex justify-center py-8">
+      <svg
+        viewBox="0 0 300 900"
+        className="w-full max-w-[280px]"
+        style={{ filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.1))' }}
+      >
+        <defs>
+          <linearGradient id="boneGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style={{ stopColor: 'oklch(0.92 0.02 70)', stopOpacity: 1 }} />
+            <stop offset="50%" style={{ stopColor: 'oklch(0.88 0.02 70)', stopOpacity: 1 }} />
+            <stop offset="100%" style={{ stopColor: 'oklch(0.85 0.025 65)', stopOpacity: 1 }} />
+          </linearGradient>
+          <linearGradient id="subluxationGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style={{ stopColor: 'oklch(0.60 0.22 25)', stopOpacity: 1 }} />
+            <stop offset="50%" style={{ stopColor: 'oklch(0.55 0.22 25)', stopOpacity: 1 }} />
+            <stop offset="100%" style={{ stopColor: 'oklch(0.50 0.22 25)', stopOpacity: 1 }} />
+          </linearGradient>
+        </defs>
 
-      <div className="flex flex-col items-center gap-2">
-        <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
-          Thoracic
-        </h3>
-        <div className="flex flex-col gap-1">
-          {thoracic.map(vertebra => (
+        <g id="cervical-region">
+          {cervical.map((vertebra, index) => (
             <VertebraButton
               key={vertebra.id}
               id={vertebra.id}
@@ -46,17 +42,16 @@ export function SpineDiagram({ selectedVertebrae, onToggleVertebra }: SpineDiagr
               isSelected={selectedVertebrae.includes(vertebra.id)}
               onToggle={onToggleVertebra}
               region={vertebra.region}
+              yPosition={40 + index * 28}
+              width={85 + index * 3}
+              height={24}
+              curveOffset={-15 + index * 2}
             />
           ))}
-        </div>
-      </div>
+        </g>
 
-      <div className="flex flex-col items-center gap-2">
-        <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
-          Lumbar
-        </h3>
-        <div className="flex flex-col gap-1">
-          {lumbar.map(vertebra => (
+        <g id="thoracic-region">
+          {thoracic.map((vertebra, index) => (
             <VertebraButton
               key={vertebra.id}
               id={vertebra.id}
@@ -64,17 +59,16 @@ export function SpineDiagram({ selectedVertebrae, onToggleVertebra }: SpineDiagr
               isSelected={selectedVertebrae.includes(vertebra.id)}
               onToggle={onToggleVertebra}
               region={vertebra.region}
+              yPosition={240 + index * 30}
+              width={105 + index * 2}
+              height={26}
+              curveOffset={index < 6 ? 0 + index * 3 : 18 - (index - 6) * 2}
             />
           ))}
-        </div>
-      </div>
+        </g>
 
-      <div className="flex flex-col items-center gap-2">
-        <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
-          Sacral & Coccygeal
-        </h3>
-        <div className="flex flex-col gap-1">
-          {sacral.map(vertebra => (
+        <g id="lumbar-region">
+          {lumbar.map((vertebra, index) => (
             <VertebraButton
               key={vertebra.id}
               id={vertebra.id}
@@ -82,9 +76,16 @@ export function SpineDiagram({ selectedVertebrae, onToggleVertebra }: SpineDiagr
               isSelected={selectedVertebrae.includes(vertebra.id)}
               onToggle={onToggleVertebra}
               region={vertebra.region}
+              yPosition={600 + index * 35}
+              width={130 - index * 4}
+              height={30}
+              curveOffset={6 - index * 2}
             />
           ))}
-          {coccygeal.map(vertebra => (
+        </g>
+
+        <g id="sacral-region">
+          {sacral.map((vertebra, index) => (
             <VertebraButton
               key={vertebra.id}
               id={vertebra.id}
@@ -92,10 +93,38 @@ export function SpineDiagram({ selectedVertebrae, onToggleVertebra }: SpineDiagr
               isSelected={selectedVertebrae.includes(vertebra.id)}
               onToggle={onToggleVertebra}
               region={vertebra.region}
+              yPosition={780 + index * 32}
+              width={105}
+              height={28}
+              curveOffset={-4}
+              isSacrum={true}
             />
           ))}
-        </div>
-      </div>
+        </g>
+
+        <g id="coccygeal-region">
+          {coccygeal.map((vertebra, index) => (
+            <VertebraButton
+              key={vertebra.id}
+              id={vertebra.id}
+              label={vertebra.id}
+              isSelected={selectedVertebrae.includes(vertebra.id)}
+              onToggle={onToggleVertebra}
+              region={vertebra.region}
+              yPosition={815 + index * 20}
+              width={55}
+              height={20}
+              curveOffset={-6}
+              isCoccyx={true}
+            />
+          ))}
+        </g>
+
+        <text x="10" y="25" className="fill-muted-foreground text-xs font-semibold uppercase">Cervical</text>
+        <text x="10" y="225" className="fill-muted-foreground text-xs font-semibold uppercase">Thoracic</text>
+        <text x="10" y="585" className="fill-muted-foreground text-xs font-semibold uppercase">Lumbar</text>
+        <text x="10" y="765" className="fill-muted-foreground text-xs font-semibold uppercase">Sacral</text>
+      </svg>
     </div>
   )
 }

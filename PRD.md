@@ -13,11 +13,11 @@ This application requires interactive selection, dynamic data display, and form 
 ## Essential Features
 
 ### Interactive Spine Diagram
-- **Functionality**: Visual representation of the entire spine (C1-C7, T1-T12, L1-L5, Sacrum, Coccyx) where each vertebra is a clickable element
-- **Purpose**: Enable rapid, intuitive documentation of subluxation locations through direct visual selection
+- **Functionality**: Anatomically accurate SVG representation of the entire spine (C1-C7, T1-T12, L1-L5, Sacrum, Coccyx) where each vertebra is a clickable element with realistic bone structure including vertebral body, transverse processes, and spinal canal
+- **Purpose**: Enable rapid, intuitive documentation of subluxation locations through direct visual selection with anatomical accuracy that mirrors actual spinal structure
 - **Trigger**: Chiropractor clicks/taps on any vertebra in the spine diagram
-- **Progression**: Click vertebra → Vertebra highlights in red → Selection stored in assessment → Vertebra can be clicked again to deselect
-- **Success criteria**: Each vertebra can be independently selected/deselected, visual feedback is immediate, multiple vertebrae can be selected simultaneously
+- **Progression**: Click vertebra → Vertebra highlights in red with gradient → Selection stored in assessment → Vertebra can be clicked again to deselect
+- **Success criteria**: Each vertebra can be independently selected/deselected, visual feedback is immediate, multiple vertebrae can be selected simultaneously, vertebrae show anatomically correct sizing (cervical smallest, lumbar largest) and proper spinal curvature (cervical lordosis, thoracic kyphosis, lumbar lordosis)
 
 ### Subluxation Summary Report
 - **Functionality**: Dynamic report displaying all selected vertebrae with corresponding nerve functions and potential symptoms
@@ -54,14 +54,14 @@ The design should evoke **clinical professionalism with modern accessibility** -
 
 ## Color Selection
 
-The color scheme emphasizes **medical trust with energetic warmth** - professional enough for clinical use while remaining inviting and modern.
+The color scheme emphasizes **medical trust with anatomical realism** - professional enough for clinical use while remaining inviting and modern, with realistic bone gradients for authenticity.
 
 - **Primary Color**: Deep Teal `oklch(0.45 0.12 210)` - Conveys medical professionalism and trustworthiness, used for primary actions and key interface elements
 - **Secondary Colors**: 
-  - Bone Beige `oklch(0.88 0.02 70)` - Natural vertebra color in unselected state
+  - Bone Beige Gradient - Natural vertebra color in unselected state using realistic bone tones from `oklch(0.92 0.02 70)` to `oklch(0.85 0.025 65)` creating dimensional depth
   - Clinical Gray `oklch(0.96 0.005 240)` - Background panels and secondary surfaces
 - **Accent Color**: Vibrant Orange `oklch(0.68 0.18 45)` - Attention-grabbing highlight for CTAs and important interactive elements like "Generate Care Plan"
-- **Subluxation Red**: `oklch(0.55 0.22 25)` - Clear, medically-appropriate red for selected vertebrae indicating subluxation
+- **Subluxation Red Gradient**: From `oklch(0.60 0.22 25)` to `oklch(0.50 0.22 25)` - Clear, medically-appropriate red gradient for selected vertebrae indicating subluxation with dimensional appearance
 - **Foreground/Background Pairings**: 
   - Primary Teal `oklch(0.45 0.12 210)`: White text `oklch(1 0 0)` - Ratio 7.2:1 ✓
   - Accent Orange `oklch(0.68 0.18 45)`: White text `oklch(1 0 0)` - Ratio 5.1:1 ✓
@@ -87,7 +87,8 @@ Typography should balance **medical authority with modern readability** - profes
 
 Animations should **enhance clinical workflow efficiency** while providing satisfying visual feedback. Keep transitions purposeful and quick to maintain professional pace.
 
-- **Vertebra Selection**: 150ms smooth color transition with subtle scale pulse (1.0 → 1.05 → 1.0) to confirm selection
+- **Vertebra Selection**: Smooth color transition to red gradient with subtle glow effect on selection
+- **Vertebra Hover**: 150ms scale animation (1.0 → 1.05) with enhanced drop shadow for depth
 - **Report Updates**: 200ms fade-in for new report sections appearing when vertebrae are selected
 - **Care Plan Accordion**: 300ms smooth expansion/collapse for stage details
 - **Button Interactions**: 100ms color/shadow transition on hover, 80ms scale-down (0.98) on press for tactile feedback
@@ -108,12 +109,12 @@ Animations should **enhance clinical workflow efficiency** while providing satis
   - **Alert** - Success/info messages for saved assessments
   
 - **Customizations**: 
-  - **Custom SpineVertebra Component** - Clickable vertebra elements with hover states, selection states, and anatomical positioning
+  - **Custom SVG Spine Component** - Anatomically accurate vertebrae rendered as SVG paths with realistic bone structure including vertebral body, transverse processes, and spinal canal; proper anatomical sizing (cervical 85-100px, thoracic 105-125px, lumbar 110-130px); natural spinal curvature with horizontal offsets simulating cervical lordosis, thoracic kyphosis, and lumbar lordosis; sacrum and coccyx with specialized triangular/tapered shapes
   - **Custom CareStageForm** - Reusable component for each treatment stage with frequency/duration inputs
   
 - **States**: 
   - Buttons: Default (teal), Hover (darker teal + shadow), Active (pressed), Disabled (muted)
-  - Vertebrae: Default (bone beige), Hover (slight highlight), Selected (subluxation red), Disabled (during care plan view)
+  - Vertebrae: Default (bone beige gradient with anatomical depth), Hover (scale 1.05 + enhanced shadow), Selected (red gradient with darker stroke), maintain realistic 3D appearance through gradients and shadows
   - Selects: Closed, Open (dropdown visible), Focus (ring), Selected option highlighted
   
 - **Icon Selection**: 
@@ -132,9 +133,9 @@ Animations should **enhance clinical workflow efficiency** while providing satis
   - Inline spacing: `gap-2` (8px) for label-to-input, `gap-1` (4px) for tight groupings
   
 - **Mobile**: 
-  - Spine diagram scales proportionally, may switch to single-column view on smallest screens
+  - SVG spine diagram scales proportionally maintaining anatomical accuracy, responsive viewBox ensures proper rendering on all screen sizes
   - Summary report becomes fixed-height scrollable area on mobile to preserve viewport
   - Care plan stages always render vertically stacked
   - Tabs become full-width on mobile
-  - Touch targets expanded to minimum 48px for vertebrae buttons
+  - Touch targets maintained through proper SVG hit areas and hover zones
   - Reduce padding from `p-6` to `p-4` on containers

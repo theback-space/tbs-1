@@ -25,22 +25,10 @@ export function VertebraButton({
   curveOffset
 }: VertebraButtonProps) {
   const [isHovered, setIsHovered] = useState(false)
-  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 })
   
   const vertebraData = getVertebraById(id)
   const centerX = 175
   const x = centerX - width / 2 + curveOffset
-  
-  const handleMouseMove = (e: React.MouseEvent<SVGGElement>) => {
-    const svg = e.currentTarget.ownerSVGElement
-    if (svg) {
-      const rect = svg.getBoundingClientRect()
-      setTooltipPosition({
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top
-      })
-    }
-  }
   
   const getVertebraPath = () => {
     if (region === 'sacral') {
@@ -234,7 +222,6 @@ export function VertebraButton({
         onClick={() => onToggle(id)}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        onMouseMove={handleMouseMove}
         style={{ cursor: 'pointer' }}
         className="transition-all duration-150"
       >
@@ -267,40 +254,61 @@ export function VertebraButton({
       </g>
 
       {isHovered && vertebraData && (
-        <g pointerEvents="none">
-          <foreignObject
-            x={tooltipPosition.x + 15}
-            y={tooltipPosition.y - 10}
-            width="280"
-            height="auto"
-            overflow="visible"
+        <g style={{ pointerEvents: 'none' }}>
+          <rect
+            x={x + width + 20}
+            y={yPosition - 10}
+            width="240"
+            height="70"
+            rx="8"
+            fill="oklch(0.2 0.015 240)"
+            stroke="oklch(0.45 0.12 210)"
+            strokeWidth="1"
+            style={{
+              filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.3))'
+            }}
+          />
+          
+          <text
+            x={x + width + 32}
+            y={yPosition + 6}
+            fill="oklch(0.68 0.18 45)"
+            style={{
+              fontSize: '14px',
+              fontWeight: 'bold',
+              letterSpacing: '0.5px'
+            }}
           >
-            <div
+            {id}
+          </text>
+          
+          <text
+            x={x + width + 32}
+            y={yPosition + 24}
+            fill="oklch(0.7 0.05 240)"
+            style={{
+              fontSize: '10px',
+              fontWeight: '600',
+              textTransform: 'uppercase',
+              letterSpacing: '0.5px'
+            }}
+          >
+            Nerve Functions:
+          </text>
+          
+          {vertebraData.nerveFunctions.map((func, index) => (
+            <text
+              key={index}
+              x={x + width + 32}
+              y={yPosition + 38 + index * 14}
+              fill="oklch(0.9 0.01 240)"
               style={{
-                backgroundColor: 'oklch(0.2 0.015 240)',
-                color: 'white',
-                padding: '12px 14px',
-                borderRadius: '8px',
-                boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
-                fontSize: '13px',
-                lineHeight: '1.5',
-                maxWidth: '280px',
-                pointerEvents: 'none'
+                fontSize: '11px'
               }}
             >
-              <div style={{ fontWeight: 'bold', marginBottom: '8px', fontSize: '14px', color: 'oklch(0.68 0.18 45)' }}>
-                {id}
-              </div>
-              <div style={{ marginBottom: '6px' }}>
-                <div style={{ fontWeight: '600', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.5px', color: 'oklch(0.7 0.05 240)', marginBottom: '4px' }}>
-                  Nerve Functions:
-                </div>
-                <div style={{ fontSize: '12px', color: 'oklch(0.9 0.01 240)' }}>
-                  {vertebraData.nerveFunctions.join(', ')}
-                </div>
-              </div>
-            </div>
-          </foreignObject>
+              {func.length > 28 ? func.substring(0, 28) + '...' : func}
+            </text>
+          )).slice(0, 2)}
         </g>
       )}
     </>

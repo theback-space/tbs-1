@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { getVertebraById } from '@/lib/vertebrae-data'
 
 interface VertebraButtonProps {
   id: string
@@ -24,9 +25,22 @@ export function VertebraButton({
   curveOffset
 }: VertebraButtonProps) {
   const [isHovered, setIsHovered] = useState(false)
+  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 })
   
+  const vertebraData = getVertebraById(id)
   const centerX = 175
   const x = centerX - width / 2 + curveOffset
+  
+  const handleMouseMove = (e: React.MouseEvent<SVGGElement>) => {
+    const svg = e.currentTarget.ownerSVGElement
+    if (svg) {
+      const rect = svg.getBoundingClientRect()
+      setTooltipPosition({
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top
+      })
+    }
+  }
   
   const getVertebraPath = () => {
     if (region === 'sacral') {
@@ -215,39 +229,80 @@ export function VertebraButton({
   }
   
   return (
-    <g
-      onClick={() => onToggle(id)}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      style={{ cursor: 'pointer' }}
-      className="transition-all duration-150"
-    >
-      <path
-        d={getVertebraPath()}
-        fill={isSelected ? 'url(#subluxationGradient)' : 'url(#boneGradient)'}
-        stroke={isSelected ? 'oklch(0.45 0.22 25)' : isHovered ? 'oklch(0.6 0.03 70)' : 'oklch(0.75 0.025 65)'}
-        strokeWidth={isHovered ? 2.5 : 2}
+    <>
+      <g
+        onClick={() => onToggle(id)}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        onMouseMove={handleMouseMove}
+        style={{ cursor: 'pointer' }}
         className="transition-all duration-150"
-        style={{
-          filter: isHovered ? 'drop-shadow(0 2px 6px rgba(0,0,0,0.2))' : 'drop-shadow(0 1px 3px rgba(0,0,0,0.1))',
-          transform: isHovered ? 'scale(1.05)' : 'scale(1)',
-          transformOrigin: `${centerX}px ${yPosition + height/2}px`
-        }}
-      />
-      
-      <text
-        x={centerX}
-        y={yPosition + height / 2 + (region === 'coccygeal' ? 3 : 5)}
-        textAnchor="middle"
-        className="pointer-events-none select-none font-bold uppercase"
-        style={{
-          fontSize: region === 'coccygeal' ? '10px' : region === 'sacral' ? '11px' : region === 'cervical' ? '12px' : '13px',
-          fill: isSelected ? 'white' : 'oklch(0.3 0.015 70)',
-          letterSpacing: '0.5px'
-        }}
       >
-        {label}
-      </text>
-    </g>
+        <path
+          d={getVertebraPath()}
+          fill={isSelected ? 'url(#subluxationGradient)' : 'url(#boneGradient)'}
+          stroke={isSelected ? 'oklch(0.45 0.22 25)' : isHovered ? 'oklch(0.6 0.03 70)' : 'oklch(0.75 0.025 65)'}
+          strokeWidth={isHovered ? 2.5 : 2}
+          className="transition-all duration-150"
+          style={{
+            filter: isHovered ? 'drop-shadow(0 2px 6px rgba(0,0,0,0.2))' : 'drop-shadow(0 1px 3px rgba(0,0,0,0.1))',
+            transform: isHovered ? 'scale(1.05)' : 'scale(1)',
+            transformOrigin: `${centerX}px ${yPosition + height/2}px`
+          }}
+        />
+        
+        <text
+          x={centerX}
+          y={yPosition + height / 2 + (region === 'coccygeal' ? 3 : 5)}
+          textAnchor="middle"
+          className="pointer-events-none select-none font-bold uppercase"
+          style={{
+            fontSize: region === 'coccygeal' ? '10px' : region === 'sacral' ? '11px' : region === 'cervical' ? '12px' : '13px',
+            fill: isSelected ? 'white' : 'oklch(0.3 0.015 70)',
+            letterSpacing: '0.5px'
+          }}
+        >
+          {label}
+        </text>
+      </g>
+
+      {isHovered && vertebraData && (
+        <g pointerEvents="none">
+          <foreignObject
+            x={tooltipPosition.x + 15}
+            y={tooltipPosition.y - 10}
+            width="280"
+            height="auto"
+            overflow="visible"
+          >
+            <div
+              style={{
+                backgroundColor: 'oklch(0.2 0.015 240)',
+                color: 'white',
+                padding: '12px 14px',
+                borderRadius: '8px',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+                fontSize: '13px',
+                lineHeight: '1.5',
+                maxWidth: '280px',
+                pointerEvents: 'none'
+              }}
+            >
+              <div style={{ fontWeight: 'bold', marginBottom: '8px', fontSize: '14px', color: 'oklch(0.68 0.18 45)' }}>
+                {id}
+              </div>
+              <div style={{ marginBottom: '6px' }}>
+                <div style={{ fontWeight: '600', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.5px', color: 'oklch(0.7 0.05 240)', marginBottom: '4px' }}>
+                  Nerve Functions:
+                </div>
+                <div style={{ fontSize: '12px', color: 'oklch(0.9 0.01 240)' }}>
+                  {vertebraData.nerveFunctions.join(', ')}
+                </div>
+              </div>
+            </div>
+          </foreignObject>
+        </g>
+      )}
+    </>
   )
 }

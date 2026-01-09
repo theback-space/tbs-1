@@ -59,9 +59,7 @@ function App() {
           <div className="flex items-center gap-3">
             <FirstAid className="w-8 h-8 text-primary" weight="fill" />
             <div>
-              <h1 className="text-3xl font-bold tracking-tight text-foreground">
-                ChiroAssess
-              </h1>
+              <h1 className="text-3xl font-bold tracking-tight text-foreground">ChiroAssess</h1>
               <p className="text-sm text-muted-foreground">
                 Spinal Subluxation Assessment & Care Planning
               </p>
@@ -69,7 +67,6 @@ function App() {
           </div>
         </div>
       </header>
-
       <main className="container mx-auto px-4 py-8">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full max-w-md mx-auto grid-cols-2">
@@ -79,7 +76,7 @@ function App() {
 
           <TabsContent value="assessment" className="mt-6">
             <div className="grid lg:grid-cols-2 gap-6">
-              <Card className="p-6 overflow-visible">
+              <Card className="p-6 overflow-visible font-extrabold">
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-2xl font-semibold">Spine Diagram</h2>
                   {selectedVertebrae && selectedVertebrae.length > 0 && (
@@ -181,7 +178,7 @@ function App() {
         </Tabs>
       </main>
     </div>
-  )
+  );
 }
 
 export default App
